@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gay test</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center; /* Căn giữa các phần tử ngang */
+            align-items: center; /* Căn giữa các phần tử dọc */
+            gap: 20px; /* Khoảng cách giữa các phần tử */
+            flex-wrap: wrap; /* Cho phép phần tử xuống hàng khi cần */
+        }
+        .image, .video-container {
+            flex: 1; /* Cho phép phần tử mở rộng để chiếm không gian còn lại */
+            max-width: 600px; /* Giới hạn kích thước tối đa của phần tử */
+            margin: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .video-title {
+            text-align: center; /* Căn giữa tiêu đề */
+            margin-bottom: 10px; /* Khoảng cách giữa tiêu đề và video */
+            font-size: 24px; /* Kích thước chữ tiêu đề */
+            font-weight: bold; /* In đậm chữ tiêu đề */
+        }
+    </style>
+    <script>
+        function openImage1() {
+            window.open("https://media.discordapp.net/attachments/694453436816818217/1286208600863146004/FB_IMG_1726397977678.jpg?ex=66ed129b&is=66ebc11b&hm=c5f22151ce19142f851a428de3a4ee49946e7af0b44fc5ba5d0ed6e9f3dc737b&=&format=webp&width=607&height=352", "Pop-up Image", "width=600,height=600");
+        }
+        function openImage2() {
+            window.open("https://media.discordapp.net/attachments/694453436816818217/1286209984656445440/FB_IMG_1725074253077.jpg?ex=66ed13e4&is=66ebc264&hm=8a22260440204859cef3b2f8e81bb6e01a453b9c0fbb1f2db3a5a1534eb2b3a7&=&format=webp&width=756&height=385", "Pop-up Image", "width=600,height=600");
+        }
+        function openImage3() {
+            alert("Ủng hộ cái lồn mẹ mày thằng gay.");
+        }
+        function captureImage() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                var video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+
+                // Chờ cho video tải xong
+                video.onloadedmetadata = function() {
+                    var canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    var context = canvas.getContext('2d');
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    var image = document.getElementById('capturedImage');
+                    image.src = canvas.toDataURL('image/png');
+                    image.style.display = 'block';
+
+                    // Tắt stream sau khi chụp ảnh
+                    stream.getTracks().forEach(track => track.stop());
+                };
+            })
+            .catch(function(err) {
+                console.log("Lỗi truy cập camera: " + err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Mày có bị gay ko?</h1>
+    <div class="container">
+        <div class="image">
+            <img src="https://media.discordapp.net/attachments/694453436816818217/1286210534307528775/images.png?ex=66ed1468&is=66ebc2e8&hm=b04716b233c5b1e47e14eabeb0e8b931d1af906d63f7d85667574db8bef7c07b&=&format=webp&quality=lossless&width=309&height=308" alt="Gay Finder" width="100%" height="auto">
+        </div>
+        <div class="video-container">
+            <div class="video-title">Thằng gay nhất lịch sử</div>
+            <img id="capturedImage" style="display:none;" alt="Captured Image"/>
+        </div>
+    </div>
+    <button style="width: 200px; height: 60px; font-size: 20px;" onclick="openImage1()">Có</button>
+    <button style="width: 200px; height: 60px; font-size: 20px;" onclick="openImage2()">Không</button>
+    <button style="width: 200px; height: 60px; font-size: 20px;" onclick="openImage3()">Ủng hộ</button>
+    <button style="width: 250px; height: 60px; font-size: 20px;" onclick="captureImage()">Thằng gay nhất lịch sử</button>
+</body>
+</html>
